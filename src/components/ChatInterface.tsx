@@ -147,7 +147,7 @@ export default function ChatInterface() {
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <h2 className="text-white font-semibold">Ask TeamPulse</h2>
+          <h2 className="text-white font-semibold">Ask Team Singularity AI</h2>
           {sessionId && (
             <span className="text-slate-600 text-xs font-mono">
               #{sessionId.slice(-6)}
@@ -173,7 +173,7 @@ export default function ChatInterface() {
             </h3>
             <p className="text-slate-400 text-sm max-w-md">
               Ask anything about your uploaded documents — decisions, action items, deadlines, context.
-              TeamPulse cites its sources so you can verify every answer.
+              Team Singularity AI cites its sources so you can verify every answer.
             </p>
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 w-full max-w-2xl">
               {SUGGESTED_QUESTIONS.map((q) => (

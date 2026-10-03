@@ -160,11 +160,11 @@ export async function runQAAgent(
   // 5. Build conversation history string
   const historyStr = conversationHistory
     .slice(-6) // last 3 turns
-    .map((m) => `${m.role === 'user' ? 'User' : 'TeamPulse'}: ${m.content}`)
+    .map((m) => `${m.role === 'user' ? 'User' : 'Singularity AI'}: ${m.content}`)
     .join('\n');
 
   // 6. Generate answer
-  const systemPrompt = `You are TeamPulse, an intelligent organizational memory assistant.
+  const systemPrompt = `You are Singularity AI, an intelligent organizational memory assistant built by Team Singularity.
 You have access to the company's documents, meeting transcripts, emails, and knowledge base.
 Answer questions accurately and concisely. Always cite which document your answer comes from.
 If you cannot find relevant information in the provided context, say so clearly — never hallucinate facts.

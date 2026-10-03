@@ -1,4 +1,4 @@
-# TeamPulse — AI Organizational Memory Agent
+# Team Singularity — AI Organizational Memory Agent
 
 > **AI Builder Cup 2026 · Theme: Future of Work & Enterprise Productivity**
 > Built by **Team Singularity** · Powered by **Gemini 1.5 Pro** · Deployed on **Google Cloud Run + Firestore**
@@ -13,11 +13,11 @@ Decisions made in Monday's meeting are forgotten by Friday. Action items agreed 
 
 This isn't a knowledge *creation* problem — teams create plenty of content. It's a knowledge *retention and retrieval* problem. Existing solutions are either too heavyweight (Confluence, Notion) requiring manual curation, or too shallow (search tools) that can't synthesise across documents.
 
-**TeamPulse solves this with a four-agent AI system that automatically extracts, indexes, and makes your organisation's institutional memory queryable in natural language.**
+**Team Singularity solves this with a four-agent AI system that automatically extracts, indexes, and makes your organisation's institutional memory queryable in natural language.**
 
 ---
 
-## What TeamPulse Does
+## What It Does
 
 ```
 Upload any document  →  Gemini extracts decisions + action items  →  Ask anything in chat
@@ -113,7 +113,7 @@ Upload any document  →  Gemini extracts decisions + action items  →  Ask any
 ## Project Structure
 
 ```
-teampulse/
+Team-Singularity/
 ├── src/
 │   ├── agents/
 │   │   ├── ingestion-agent.ts    # Chunk + embed documents
@@ -170,7 +170,7 @@ teampulse/
 ### Problem Alignment & Impact (25%)
 - Every knowledge-worker team loses institutional memory — this is a universal, painful problem
 - SMEs and startups can't afford enterprise knowledge management platforms (Guru, Tettra cost $10–20/user/month)
-- TeamPulse turns existing documents into a searchable, queryable brain at zero marginal cost beyond API calls
+- Team Singularity's AI turns existing documents into a searchable, queryable brain at zero marginal cost beyond API calls
 - Proactive nudging prevents tasks from falling through the cracks — a measurable productivity impact
 
 ### Innovation & Creativity (25%)
@@ -197,7 +197,8 @@ teampulse/
 ### 1. Clone and install
 
 ```bash
-cd teampulse
+git clone https://github.com/neeti26/Team-Singularity.git
+cd Team-Singularity
 npm install
 ```
 
@@ -244,7 +245,7 @@ npm run dev
 
 1. Go to **Upload Docs** → drag in a meeting transcript (plain `.txt` works great)
 2. Go to **Dashboard** → see extracted stats
-3. Go to **Ask TeamPulse** → ask *"What decisions were made?"*
+3. Go to **Ask Singularity AI** → ask *"What decisions were made?"*
 4. Go to **Action Items** → see extracted tasks
 5. Go to **Nudges** → click **Run Agent** to generate nudge messages
 
@@ -278,8 +279,8 @@ chmod +x deploy.sh
 
 ```bash
 gcloud builds triggers create github \
-  --repo-name=teampulse \
-  --repo-owner=YOUR_GITHUB_USERNAME \
+  --repo-name=Team-Singularity \
+  --repo-owner=neeti26 \
   --branch-pattern="^main$" \
   --build-config=cloudbuild.yaml
 ```
@@ -355,7 +356,7 @@ After uploading, ask in chat:
 ## Demo Video Script (3 minutes)
 
 **0:00–0:20 — Hook**
-> "Every team I've worked on has had this problem: decisions get made, things get agreed, and then they disappear. TeamPulse is an AI that remembers everything so you don't have to."
+> "Every team I've worked on has had this problem: decisions get made, things get agreed, and then they disappear. Team Singularity is an AI that remembers everything so you don't have to."
 
 **0:20–0:50 — Upload**
 Show dragging a meeting transcript PDF into the upload zone. Show the per-file processing feedback and the summary Gemini generates.
@@ -375,11 +376,13 @@ Show the Action Items table with priority badges. Click "Run Nudge Agent" — sh
 
 ---
 
-## Team Singularity
+## Team
 
-Built for the **Google Cloud AI Builder Cup 2026**, JAPAC region.
+**Team Singularity** — AI Builder Cup 2026, JAPAC region.
 
 Theme: **Future of Work & Enterprise Productivity**
+
+GitHub: [https://github.com/neeti26/Team-Singularity](https://github.com/neeti26/Team-Singularity)
 
 ---
 

@@ -1,4 +1,5 @@
 # Cloud Build configuration for CI/CD pipeline
+# Team Singularity — AI Builder Cup 2026
 # Triggered automatically on push to main branch
 steps:
   # Step 1: Build Docker image
@@ -6,9 +7,9 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/teampulse:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/team-singularity:$COMMIT_SHA'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/teampulse:latest'
+      - 'gcr.io/$PROJECT_ID/team-singularity:latest'
       - '.'
     timeout: '1200s'
 
@@ -16,12 +17,12 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/teampulse:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/team-singularity:$COMMIT_SHA'
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/teampulse:latest'
+      - 'gcr.io/$PROJECT_ID/team-singularity:latest'
 
   # Step 3: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -29,8 +30,8 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'teampulse'
-      - '--image=gcr.io/$PROJECT_ID/teampulse:$COMMIT_SHA'
+      - 'team-singularity'
+      - '--image=gcr.io/$PROJECT_ID/team-singularity:$COMMIT_SHA'
       - '--region=asia-southeast1'
       - '--platform=managed'
       - '--allow-unauthenticated'
@@ -38,11 +39,11 @@ steps:
       - '--memory=2Gi'
       - '--cpu=2'
       - '--timeout=300'
-      - '--set-secrets=GEMINI_API_KEY=teampulse-gemini-key:latest,FIREBASE_PROJECT_ID=teampulse-firebase-project:latest,FIREBASE_CLIENT_EMAIL=teampulse-firebase-email:latest,FIREBASE_PRIVATE_KEY=teampulse-firebase-key:latest,NEXT_PUBLIC_FIREBASE_API_KEY=teampulse-fb-api-key:latest,NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=teampulse-fb-auth-domain:latest,NEXT_PUBLIC_FIREBASE_PROJECT_ID=teampulse-fb-project-id:latest,NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=teampulse-fb-storage:latest,NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=teampulse-fb-sender:latest,NEXT_PUBLIC_FIREBASE_APP_ID=teampulse-fb-app-id:latest'
+      - '--set-secrets=GEMINI_API_KEY=singularity-gemini-key:latest,FIREBASE_PROJECT_ID=singularity-firebase-project:latest,FIREBASE_CLIENT_EMAIL=singularity-firebase-email:latest,FIREBASE_PRIVATE_KEY=singularity-firebase-key:latest,NEXT_PUBLIC_FIREBASE_API_KEY=singularity-fb-api-key:latest,NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=singularity-fb-auth-domain:latest,NEXT_PUBLIC_FIREBASE_PROJECT_ID=singularity-fb-project-id:latest,NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=singularity-fb-storage:latest,NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=singularity-fb-sender:latest,NEXT_PUBLIC_FIREBASE_APP_ID=singularity-fb-app-id:latest'
 
 images:
-  - 'gcr.io/$PROJECT_ID/teampulse:$COMMIT_SHA'
-  - 'gcr.io/$PROJECT_ID/teampulse:latest'
+  - 'gcr.io/$PROJECT_ID/team-singularity:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/team-singularity:latest'
 
 options:
   machineType: 'E2_HIGHCPU_8'

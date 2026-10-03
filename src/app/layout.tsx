@@ -2,13 +2,13 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'TeamPulse — Organizational Memory AI',
+  title: 'Team Singularity — Organizational Memory AI',
   description:
     'AI-powered knowledge base that captures decisions, action items and institutional memory from your meetings, docs and emails. Built with Gemini on Google Cloud.',
   keywords: ['AI', 'knowledge management', 'meeting intelligence', 'Google Gemini', 'productivity'],
   authors: [{ name: 'Team Singularity' }],
   openGraph: {
-    title: 'TeamPulse — Never lose a decision again',
+    title: 'Team Singularity — Never lose a decision again',
     description: 'AI that remembers everything your team decides and commits to.',
     type: 'website',
   },

@@ -142,7 +142,7 @@ export default function DashboardPage() {
             <div className="space-y-2">
               {[
                 { href: '/upload',       icon: FileText,    label: 'Upload Document',       sub: 'PDF, DOCX, TXT, Slack' },
-                { href: '/chat',         icon: Bell,        label: 'Ask TeamPulse',         sub: 'Q&A your knowledge base' },
+                { href: '/chat',         icon: Bell,        label: 'Ask Singularity AI',    sub: 'Q&A your knowledge base' },
                 { href: '/action-items', icon: CheckSquare, label: 'Review Action Items',   sub: `${stats?.openActionItems ?? '—'} open tasks` },
                 { href: '/decisions',    icon: Scale,       label: 'Browse Decisions',      sub: `${stats?.totalDecisions ?? '—'} recorded` },
               ].map(({ href, icon: Icon, label, sub }) => (

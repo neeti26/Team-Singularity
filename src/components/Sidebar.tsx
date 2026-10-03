@@ -17,7 +17,7 @@ import clsx from 'clsx';
 const NAV = [
   { href: '/dashboard',      icon: LayoutDashboard, label: 'Dashboard' },
   { href: '/upload',         icon: Upload,          label: 'Upload Docs' },
-  { href: '/chat',           icon: MessageSquare,   label: 'Ask TeamPulse' },
+  { href: '/chat',           icon: MessageSquare,   label: 'Ask Singularity' },
   { href: '/action-items',   icon: CheckSquare,     label: 'Action Items' },
   { href: '/decisions',      icon: Scale,           label: 'Decisions' },
   { href: '/nudges',         icon: Bell,            label: 'Nudges' },
@@ -34,7 +34,7 @@ export default function Sidebar() {
           <Zap className="w-4 h-4 text-white" />
         </div>
         <div>
-          <p className="text-white font-semibold text-sm leading-none">TeamPulse</p>
+          <p className="text-white font-semibold text-sm leading-none">Team Singularity</p>
           <p className="text-slate-500 text-xs mt-0.5">Org Memory AI</p>
         </div>
       </div>
@@ -67,7 +67,7 @@ export default function Sidebar() {
       <div className="px-4 py-4 border-t border-slate-800">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-[10px] font-bold text-white">
-            T
+            S
           </div>
           <div className="min-w-0">
             <p className="text-slate-300 text-xs font-medium truncate">Team Singularity</p>

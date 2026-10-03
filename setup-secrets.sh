@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-# TeamPulse — Create Google Secret Manager secrets from .env.local
+# Team Singularity — Create Google Secret Manager secrets from .env.local
 # Run this ONCE before the first deployment.
 # Usage: GCP_PROJECT_ID=your-project ./setup-secrets.sh
 # ─────────────────────────────────────────────────────────────────────────────
@@ -19,16 +19,16 @@ gcloud services enable secretmanager.googleapis.com --quiet
 
 # Map: env var name → Secret Manager secret name
 declare -A SECRET_MAP=(
-  [GEMINI_API_KEY]="teampulse-gemini-key"
-  [FIREBASE_PROJECT_ID]="teampulse-firebase-project"
-  [FIREBASE_CLIENT_EMAIL]="teampulse-firebase-email"
-  [FIREBASE_PRIVATE_KEY]="teampulse-firebase-key"
-  [NEXT_PUBLIC_FIREBASE_API_KEY]="teampulse-fb-api-key"
-  [NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN]="teampulse-fb-auth-domain"
-  [NEXT_PUBLIC_FIREBASE_PROJECT_ID]="teampulse-fb-project-id"
-  [NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET]="teampulse-fb-storage"
-  [NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID]="teampulse-fb-sender"
-  [NEXT_PUBLIC_FIREBASE_APP_ID]="teampulse-fb-app-id"
+  [GEMINI_API_KEY]="singularity-gemini-key"
+  [FIREBASE_PROJECT_ID]="singularity-firebase-project"
+  [FIREBASE_CLIENT_EMAIL]="singularity-firebase-email"
+  [FIREBASE_PRIVATE_KEY]="singularity-firebase-key"
+  [NEXT_PUBLIC_FIREBASE_API_KEY]="singularity-fb-api-key"
+  [NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN]="singularity-fb-auth-domain"
+  [NEXT_PUBLIC_FIREBASE_PROJECT_ID]="singularity-fb-project-id"
+  [NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET]="singularity-fb-storage"
+  [NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID]="singularity-fb-sender"
+  [NEXT_PUBLIC_FIREBASE_APP_ID]="singularity-fb-app-id"
 )
 
 # Source env file

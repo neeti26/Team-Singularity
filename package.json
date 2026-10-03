@@ -1,7 +1,7 @@
 {
-  "name": "teampulse",
+  "name": "team-singularity",
   "version": "1.0.0",
-  "description": "AI-powered Organizational Memory & Decision Intelligence Agent",
+  "description": "AI-powered Organizational Memory & Decision Intelligence Agent by Team Singularity",
   "private": true,
   "scripts": {
     "dev": "next dev",
