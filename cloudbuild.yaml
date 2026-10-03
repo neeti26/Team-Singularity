@@ -1,0 +1,51 @@
+# Cloud Build configuration for CI/CD pipeline
+# Triggered automatically on push to main branch
+steps:
+  # Step 1: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/teampulse:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/teampulse:latest'
+      - '.'
+    timeout: '1200s'
+
+  # Step 2: Push image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/teampulse:$COMMIT_SHA'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/teampulse:latest'
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'teampulse'
+      - '--image=gcr.io/$PROJECT_ID/teampulse:$COMMIT_SHA'
+      - '--region=asia-southeast1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--port=8080'
+      - '--memory=2Gi'
+      - '--cpu=2'
+      - '--timeout=300'
+      - '--set-secrets=GEMINI_API_KEY=teampulse-gemini-key:latest,FIREBASE_PROJECT_ID=teampulse-firebase-project:latest,FIREBASE_CLIENT_EMAIL=teampulse-firebase-email:latest,FIREBASE_PRIVATE_KEY=teampulse-firebase-key:latest,NEXT_PUBLIC_FIREBASE_API_KEY=teampulse-fb-api-key:latest,NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=teampulse-fb-auth-domain:latest,NEXT_PUBLIC_FIREBASE_PROJECT_ID=teampulse-fb-project-id:latest,NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=teampulse-fb-storage:latest,NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=teampulse-fb-sender:latest,NEXT_PUBLIC_FIREBASE_APP_ID=teampulse-fb-app-id:latest'
+
+images:
+  - 'gcr.io/$PROJECT_ID/teampulse:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/teampulse:latest'
+
+options:
+  machineType: 'E2_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: '1800s'

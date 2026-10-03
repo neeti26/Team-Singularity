@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ──────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // ── Documents (uploaded files metadata) ───────────────────
+    match /documents/{docId} {
+      allow read:   if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+
+    // ── Knowledge chunks ──────────────────────────────────────
+    match /chunks/{chunkId} {
+      allow read:   if isSignedIn();
+      allow write:  if false; // server-side only
+    }
+
+    // ── Embeddings ────────────────────────────────────────────
+    match /embeddings/{embId} {
+      allow read:   if isSignedIn();
+      allow write:  if false; // server-side only
+    }
+
+    // ── Decisions ─────────────────────────────────────────────
+    match /decisions/{decId} {
+      allow read:   if isSignedIn();
+      allow write:  if false; // server-side only
+    }
+
+    // ── Action items ──────────────────────────────────────────
+    match /actionItems/{itemId} {
+      allow read:   if isSignedIn();
+      // Users can update status; creation is server-side
+      allow update: if isSignedIn();
+      allow create: if false;
+      allow delete: if isSignedIn();
+    }
+
+    // ── Chat sessions ─────────────────────────────────────────
+    match /chatSessions/{sessionId} {
+      allow read:   if isSignedIn();
+      allow write:  if isSignedIn();
+    }
+
+    // ── Nudge logs ────────────────────────────────────────────
+    match /nudgeLogs/{logId} {
+      allow read:   if isSignedIn();
+      allow write:  if false; // server-side only
+    }
+
+    // ── Activity log ──────────────────────────────────────────
+    match /activityLog/{eventId} {
+      allow read:   if isSignedIn();
+      allow write:  if false; // server-side only
+    }
+  }
+}
