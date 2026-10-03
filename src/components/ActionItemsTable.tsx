@@ -4,6 +4,15 @@ import { useState, useEffect, useCallback } from 'react';
 import { CheckCircle2, Circle, Clock, AlertTriangle, RefreshCw, Bell } from 'lucide-react';
 import clsx from 'clsx';
 import type { ActionItem, ActionItemStatus } from '@/types';
+import { differenceInDays, parseISO, isValid } from 'date-fns';
+
+function getDaysOverdue(dueDate: string | null): number | null {
+  if (!dueDate) return null;
+  const due = parseISO(dueDate);
+  if (!isValid(due)) return null;
+  const diff = differenceInDays(new Date(), due);
+  return diff > 0 ? diff : null;
+}
 
 const STATUS_OPTIONS: ActionItemStatus[] = ['open', 'in_progress', 'overdue', 'completed'];
 
@@ -12,6 +21,13 @@ const PRIORITY_BADGE: Record<string, string> = {
   high:     'badge-high',
   medium:   'badge-medium',
   low:      'badge-low',
+};
+
+const PRIORITY_BORDER: Record<string, string> = {
+  critical: 'border-l-red-500',
+  high:     'border-l-orange-500',
+  medium:   'border-l-yellow-500',
+  low:      'border-l-slate-600',
 };
 
 const STATUS_BADGE: Record<string, string> = {
@@ -93,6 +109,20 @@ export default function ActionItemsTable({ initialFilter }: Props) {
 
   return (
     <div className="space-y-4">
+      {/* Completion progress bar */}
+      {!loading && items.length > 0 && (() => {
+        const done = items.filter(i => i.status === 'completed').length;
+        const pct  = Math.round((done / items.length) * 100);
+        return (
+          <div className="flex items-center gap-3">
+            <span className="text-slate-500 text-xs shrink-0">Completion</span>
+            <div className="flex-1 bg-slate-700 rounded-full h-1.5">
+              <div className="h-1.5 rounded-full bg-green-500 transition-all duration-700" style={{ width: `${pct}%` }} />
+            </div>
+            <span className="text-slate-400 text-xs shrink-0 font-medium">{pct}%</span>
+          </div>
+        );
+      })()}
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-3">
         {/* Status filter tabs */}
@@ -183,8 +213,12 @@ export default function ActionItemsTable({ initialFilter }: Props) {
               ) : (
                 filtered.map((item, idx) => {
                   const StatusIcon = STATUS_ICON[item.status];
+                  const overdueDays = getDaysOverdue(item.dueDate);
                   return (
-                    <tr key={item.id} className="hover:bg-white/[0.02] transition-colors">
+                    <tr key={item.id} className={clsx(
+                      'hover:bg-white/[0.02] transition-colors border-l-2',
+                      PRIORITY_BORDER[item.priority] || 'border-l-slate-700'
+                    )}>
                       <td className="px-4 py-3 text-slate-600 text-xs">{idx + 1}</td>
                       <td className="px-4 py-3 max-w-xs">
                         <p className="text-slate-200 font-medium truncate">{item.title}</p>
@@ -199,7 +233,12 @@ export default function ActionItemsTable({ initialFilter }: Props) {
                       </td>
                       <td className="px-4 py-3 text-xs text-slate-400 whitespace-nowrap">
                         {item.dueDate
-                          ? new Date(item.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })
+                          ? <>
+                              {new Date(item.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })}
+                              {overdueDays !== null && (
+                                <span className="ml-1.5 text-red-400 font-medium">{overdueDays}d late</span>
+                              )}
+                            </>
                           : <span className="text-slate-600">—</span>}
                       </td>
                       <td className="px-4 py-3">
