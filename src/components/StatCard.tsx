@@ -4,49 +4,54 @@ import clsx from 'clsx';
 import type { LucideIcon } from 'lucide-react';
 
 interface Props {
-  label:       string;
-  value:       string | number;
-  icon:        LucideIcon;
-  trend?:      string;
-  trendUp?:    boolean;
-  color?:      'blue' | 'green' | 'amber' | 'red' | 'purple';
-  loading?:    boolean;
+  label:    string;
+  value:    string | number;
+  icon:     LucideIcon;
+  trend?:   string;
+  trendUp?: boolean;
+  color?:   'blue' | 'green' | 'amber' | 'red' | 'purple';
+  loading?: boolean;
 }
 
-const COLOR_MAP = {
-  blue:   'text-blue-400   bg-blue-500/10   border-blue-500/20',
-  green:  'text-green-400  bg-green-500/10  border-green-500/20',
-  amber:  'text-amber-400  bg-amber-500/10  border-amber-500/20',
-  red:    'text-red-400    bg-red-500/10    border-red-500/20',
-  purple: 'text-purple-400 bg-purple-500/10 border-purple-500/20',
+const THEME = {
+  blue:   { icon: 'text-blue-400',   ring: 'rgba(59,130,246,0.25)',  bg: 'rgba(59,130,246,0.08)',  glow: 'rgba(59,130,246,0.12)',  num: '#93c5fd' },
+  green:  { icon: 'text-green-400',  ring: 'rgba(16,185,129,0.25)',  bg: 'rgba(16,185,129,0.08)',  glow: 'rgba(16,185,129,0.12)',  num: '#6ee7b7' },
+  amber:  { icon: 'text-amber-400',  ring: 'rgba(245,158,11,0.25)',  bg: 'rgba(245,158,11,0.08)',  glow: 'rgba(245,158,11,0.12)',  num: '#fcd34d' },
+  red:    { icon: 'text-red-400',    ring: 'rgba(239,68,68,0.25)',   bg: 'rgba(239,68,68,0.08)',   glow: 'rgba(239,68,68,0.12)',   num: '#fca5a5' },
+  purple: { icon: 'text-purple-400', ring: 'rgba(168,85,247,0.25)',  bg: 'rgba(168,85,247,0.08)',  glow: 'rgba(168,85,247,0.12)',  num: '#d8b4fe' },
 };
 
-export default function StatCard({
-  label, value, icon: Icon, trend, trendUp, color = 'blue', loading,
-}: Props) {
-  const colorClass = COLOR_MAP[color];
+export default function StatCard({ label, value, icon: Icon, trend, trendUp, color = 'blue', loading }: Props) {
+  const t = THEME[color];
 
   if (loading) {
     return (
-      <div className="card p-5">
-        <div className="skeleton h-4 w-24 mb-3" />
-        <div className="skeleton h-8 w-16 mb-2" />
-        <div className="skeleton h-3 w-20" />
+      <div className="card p-5 min-h-[100px]">
+        <div className="skeleton h-3 w-20 mb-4 rounded-md" />
+        <div className="skeleton h-7 w-14 mb-2.5 rounded-md" />
+        <div className="skeleton h-2.5 w-16 rounded-md" />
       </div>
     );
   }
 
   return (
-    <div className="card p-5 hover:border-slate-500 transition-colors duration-200">
-      <div className="flex items-start justify-between mb-3">
-        <p className="text-slate-400 text-sm font-medium">{label}</p>
-        <div className={clsx('p-2 rounded-lg border', colorClass)}>
-          <Icon className="w-4 h-4" />
+    <div className="card p-5 stat-card-inner cursor-default group"
+         style={{ ['--glow' as string]: t.glow }}>
+      <div className="flex items-start justify-between mb-4">
+        <p className="text-xs font-medium tracking-wide" style={{ color: 'rgba(255,255,255,0.4)' }}>{label}</p>
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+             style={{ background: t.bg, boxShadow: `0 0 0 1px ${t.ring}` }}>
+          <Icon className={clsx('w-4 h-4', t.icon)} />
         </div>
       </div>
-      <p className="text-white text-3xl font-bold tabular-nums">{value}</p>
+
+      <p className="text-3xl font-bold tabular-nums leading-none transition-all group-hover:scale-105 origin-left"
+         style={{ color: t.num }}>
+        {value}
+      </p>
+
       {trend && (
-        <p className={clsx('text-xs mt-1.5', trendUp ? 'text-green-400' : 'text-slate-500')}>
+        <p className={clsx('text-[11px] mt-2.5 font-medium', trendUp ? 'text-green-400' : 'text-white/25')}>
           {trend}
         </p>
       )}
